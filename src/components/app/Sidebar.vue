@@ -2,7 +2,7 @@
   <ul class="sidenav app-sidenav" :class="{ open: value }">
     <router-link
       v-for="link in links"
-      :key="(link, url)"
+      :key="link.url"
       tag="li"
       active-class="active"
       :to="link.url"
