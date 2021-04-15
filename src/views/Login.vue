@@ -83,11 +83,16 @@ export default {
   },
   methods: {
     submitHandler() {
-      console.log(this.$v.password);
       if (this.$v.$invalid) {
         this.$v.$touch();
         return;
       }
+      // переменная для отправки на сервер
+      const formData = {
+        email: this.email,
+        password: this.password,
+      };
+      console.log(formData);
       this.$router.push("/");
     },
   },
