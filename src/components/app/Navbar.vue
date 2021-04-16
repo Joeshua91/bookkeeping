@@ -48,18 +48,18 @@ export default {
     dropdown: null,
   }),
   methods: {
-    logout() {
-      console.log("logout");
+    async logout() {
+      await this.$store.dispatch("logout");
       this.$router.push("/login?message=logout");
     },
   },
   mounted() {
-    (this.interval = setInterval(() => {
+    this.interval = setInterval(() => {
       this.date = new Date();
-    }, 1000)),
-      (this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
-        constrainWidth: true,
-      }));
+    }, 1000);
+    this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
+      constrainWidth: false,
+    });
   },
   beforeDestroy() {
     clearInterval(this.interval);
