@@ -76,6 +76,7 @@ export default {
         this.limit = 100;
         this.$v.$reset();
         this.$message("Категория успешно создана");
+        this.$emit("created", category);
       } catch (e) {}
     },
   },
