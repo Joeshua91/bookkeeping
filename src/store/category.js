@@ -7,6 +7,15 @@ export default {
       const categories = (await firebase.database().ref(`/users/${uid}/categories`).once('value')).val() || {}
       return Object.keys(categories).map(key => ({ ...categories[key], id: key }))
     },
+    async updateCategory({ commit, dispatch }, { title, limit, id }) {
+      try {
+        const uid = await dispatch('getUid')
+        await firebase.database().ref(`/users/${uid}/categories`).child(id).update({ title, limit })
+      } catch (e) {
+        commit('setError', e)
+        throw e
+      }
+    },
     async createCategory({ commit, dispatch }, { title, limit }) {
       try {
         const uid = await dispatch('getUid')
