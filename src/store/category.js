@@ -1,7 +1,23 @@
 import firebase from 'firebase/app'
-
+/* eslint-disable */
 export default {
   actions: {
+    async fetchCategories({ commit, dispatch }) {
+      const uid = await dispatch('getUid')
+      const categories = (await firebase.database().ref(`/users/${uid}/categories`).once('value')).val() || {}
+      return Object.keys(categories).map(key => ({ ...categories[key], id: key }))
+      /*
+      const cats = []
+      Object.keys(categories).forEach(key => {
+        cats.push({
+          title: categories[key].title,
+          limit: categories[key].limit,
+          id: key
+        })
+      })
+      return cats
+      */
+    },
     async createCategory({ commit, dispatch }, { title, limit }) {
       try {
         const uid = await dispatch('getUid')
