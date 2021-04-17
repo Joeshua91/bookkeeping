@@ -103,7 +103,7 @@ export default {
         };
         await this.$store.dispatch("updateCategory", categoryData);
         this.$message("Категория успешно обновлена");
-        //this.$emit("created", category);
+        this.$emit("updated", categoryData);
       } catch (e) {}
     },
   },
