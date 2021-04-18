@@ -26,8 +26,8 @@
           <span
             v-if="$v.title.$dirty && !$v.title.required"
             class="helper-text invalid"
-            >Введите название к категории</span
-          >
+            >Введите название к категории
+          </span>
         </div>
 
         <div class="input-field">
