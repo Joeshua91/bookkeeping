@@ -16,10 +16,10 @@
     </p>
 
     <section v-else>
-      <HistoryTable :records="records" />
+      <HistoryTable :records="items" />
 
       <Paginate
-        :page-count="20"
+        :page-count="pageCount"
         :click-handler="pageChangeHandler"
         :prev-text="'Назад'"
         :next-text="'Вперед'"
@@ -31,28 +31,31 @@
 </template>
 
 <script>
+import paginationMixin from "../mixins/paginationMixin";
 import HistoryTable from "@/components/HistoryTable";
 
 export default {
   name: "history",
+  mixins: [paginationMixin],
   data: () => ({
     loading: true,
     records: [],
-    categories: [],
   }),
   async mounted() {
-    const records = await this.$store.dispatch("fetchRecords");
-    this.categories = await this.$store.dispatch("fetchCategories");
+    this.records = await this.$store.dispatch("fetchRecords");
+    const categories = await this.$store.dispatch("fetchCategories");
 
-    this.records = records.map((record) => {
-      return {
-        ...record,
-        categoryName: this.categories.find((c) => c.id === record.categoryId)
-          .title,
-        typeClass: record.type === "income" ? "green" : "red",
-        typeText: record.type === "income" ? "Доход" : "Расход",
-      };
-    });
+    this.setupPagination(
+      this.records.map((record) => {
+        return {
+          ...record,
+          categoryName: categories.find((c) => c.id === record.categoryId)
+            .title,
+          typeClass: record.type === "income" ? "green" : "red",
+          typeText: record.type === "income" ? "Доход" : "Расход",
+        };
+      })
+    );
     this.loading = false;
   },
   methods: {
