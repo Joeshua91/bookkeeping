@@ -21,9 +21,10 @@
       <Paginate
         :page-count="20"
         :click-handler="pageChangeHandler"
-        :prev-text="'Prev'"
-        :next-text="'Next'"
-        :container-class="'className'"
+        :prev-text="'Назад'"
+        :next-text="'Вперед'"
+        :container-class="'pagination'"
+        :page-class="'waves-effect'"
       />
     </section>
   </div>
@@ -40,7 +41,6 @@ export default {
     categories: [],
   }),
   async mounted() {
-    // this.records = await this.$store.dispatch("fetchRecords");
     const records = await this.$store.dispatch("fetchRecords");
     this.categories = await this.$store.dispatch("fetchCategories");
 

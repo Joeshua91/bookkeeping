@@ -48,9 +48,3 @@ firebase.auth().onAuthStateChanged(() => {
     }).$mount('#app')
   }
 })
-
-
-
-/*
-// eslint-disable-next-line no-unused-vars
-*/
