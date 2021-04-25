@@ -19,6 +19,7 @@
       <HistoryTable :records="items" />
 
       <Paginate
+        v-model="page"
         :page-count="pageCount"
         :click-handler="pageChangeHandler"
         :prev-text="'Назад'"
@@ -57,9 +58,6 @@ export default {
       })
     );
     this.loading = false;
-  },
-  methods: {
-    pageChangeHandler() {},
   },
   components: {
     HistoryTable,
