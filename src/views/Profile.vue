@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Профиль</h3>
+      <h3>{{ "ProfileTitle" | localize }}</h3>
     </div>
 
     <form class="form" @submit.prevent="submitHandler">
@@ -69,7 +69,7 @@ export default {
       try {
         await this.updateInfo({
           name: this.name,
-          locale: this.isRuLocale ? 'ru-RU' : 'en-US'
+          locale: this.isRuLocale ? "ru-RU" : "en-US",
         });
       } catch (e) {}
     },
