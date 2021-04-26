@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import Paginate from 'vuejs-paginate'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -24,6 +25,7 @@ Vue.filter('currency', currencyFilter)
 Vue.directive('tooltip', tooltipDir)
 
 Vue.component('Loader', Loader)
+Vue.component('Paginate', Paginate)
 
 firebase.initializeApp({
   apiKey: "AIzaSyA6d5CFlo49quKAy7dcEHL_9NCXzKEfokc",
@@ -46,9 +48,3 @@ firebase.auth().onAuthStateChanged(() => {
     }).$mount('#app')
   }
 })
-
-
-
-/*
-// eslint-disable-next-line no-unused-vars
-*/
