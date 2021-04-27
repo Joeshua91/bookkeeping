@@ -30,7 +30,7 @@
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
-        {{"Update" | localize}}
+        {{ "Update" | localize }}
         <i class="material-icons right">send</i>
       </button>
     </form>
@@ -40,8 +40,14 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import { required } from "vuelidate/lib/validators";
+
 /* eslint-disable */
 export default {
+  metaInfo() {
+    return {
+      title: this.$title("ProfileTitle"),
+    };
+  },
   data: () => ({
     name: "",
     isRuLocale: true,
