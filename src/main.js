@@ -1,13 +1,17 @@
 import Vue from 'vue'
 import Paginate from 'vuejs-paginate'
+import VueMeta from 'vue-meta'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import Vuelidate from 'vuelidate'
 import dateFilter from '@/filters/dateFilter'
 import currencyFilter from '@/filters/currencyFilter'
+import localizeFilter from '@/filters/localizeFilter'
 import tooltipDir from '@/dir/tooltipDir'
 import messagePlugin from '@/utils/messagePlugin'
+import titlePlugin from '@/utils/titlePlugin'
+
 import Loader from '@/components/app/Loader'
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min.js'
@@ -19,8 +23,11 @@ import 'firebase/database'
 Vue.config.productionTip = false
 
 Vue.use(messagePlugin)
+Vue.use(titlePlugin)
 Vue.use(Vuelidate)
+Vue.use(VueMeta)
 Vue.filter('date', dateFilter)
+Vue.filter('localize', localizeFilter)
 Vue.filter('currency', currencyFilter)
 Vue.directive('tooltip', tooltipDir)
 

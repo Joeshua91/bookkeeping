@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>История записей</h3>
+      <h3>{{ "History_Title" | localize }}</h3>
     </div>
 
     <div class="history-chart">
@@ -11,8 +11,8 @@
     <Loader v-if="loading" />
 
     <p class="center" v-else-if="!records.length">
-      Записи отсутствуют.
-      <router-link to="/record">Добавить новую запись</router-link>
+      {{ "NoRecords" | localize }}.
+      <router-link to="/record">{{ "AddFirst" | localize }}</router-link>
     </p>
 
     <section v-else>
@@ -22,8 +22,8 @@
         v-model="page"
         :page-count="pageCount"
         :click-handler="pageChangeHandler"
-        :prev-text="'Назад'"
-        :next-text="'Вперед'"
+        :prev-text="'Back' | localize"
+        :next-text="'Forward' | localize"
         :container-class="'pagination'"
         :page-class="'waves-effect'"
       />
@@ -35,9 +35,15 @@
 import paginationMixin from "../mixins/paginationMixin";
 import HistoryTable from "@/components/HistoryTable";
 import { Pie } from "vue-chartjs";
+import localizeFilter from "@/filters/localizeFilter";
 
 export default {
   name: "history",
+  metaInfo() {
+    return {
+      title: this.$title("Menu_History"),
+    };
+  },
   extends: Pie,
   mixins: [paginationMixin],
   data: () => ({
@@ -61,23 +67,26 @@ export default {
             categoryName: categoires.find((c) => c.id === record.categoryId)
               .title,
             typeClass: record.type === "income" ? "green" : "red",
-            typeText: record.type === "income" ? "Доход" : "Расход",
+            typeText:
+              record.type === "income"
+                ? localizeFilter("Income")
+                : localizeFilter("Outcome"),
           };
         })
       );
 
       this.renderChart({
-        labels: categoires.map(c => c.title),
+        labels: categoires.map((c) => c.title),
         datasets: [
           {
-            label: "Расходы по категориям",
-            data: categoires.map(c => {
+            label: localizeFilter("CostsForCategories"),
+            data: categoires.map((c) => {
               return this.records.reduce((total, r) => {
-                if (r.categoryId === c.id && r.type === 'outcome') {
-                  total += +r.amount
+                if (r.categoryId === c.id && r.type === "outcome") {
+                  total += +r.amount;
                 }
-                return total
-              }, 0)
+                return total;
+              }, 0);
             }),
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",
